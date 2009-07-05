@@ -1,5 +1,4 @@
-
-xf86-video-displaylink notes:
+For setting up an extended desktop, you can generally follow with steps for Ubuntu 8.10 at http://mulchman.org/blog/?p=21, with the following differences:
 
  * make install puts displaylink_drv file in /usr/local/lib/xorg/modules/drivers, while Ubuntu 9.04 only looks in /usr/lib by default
    * copy or link file to /usr/lib or change X configuration to also look in /usr/local/lib/xorg/modules/drivers
