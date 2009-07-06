@@ -12,7 +12,6 @@ A solution - overly broad - to keep udlfb devices from being consumed as TextCon
 
  1. run "modinfo fbcon" and look at the depends line.  All of these kernel modules need to be disabled, in addition to fbcon
  2. Add these modules to /etc/modprobe.d/fbcon.conf per http://wiki.debian.org/KernelModuleBlacklisting
-   * On Ubuntu 9.04, the modules which need to be blacklisted are font, tileblt, bitblt, and fbcon
  3. "sudo depmod -a" to reload the list of kernel modules, including the new blacklist information
  4. Recreate your initrd with 'update-initramfs -u'
  5. reboot
