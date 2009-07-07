@@ -2,3 +2,5 @@ There are several methods to extend a single user's desktop to span multiple mon
 
  * [[RandR]]
  * [[Xinerama]]
+
+See http://mulchman.org/blog/?p=21 for a good general post on setting up ExtendedDesktop on DisplayLink devices
