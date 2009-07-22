@@ -1,0 +1,8 @@
+
+= Appear as USB Mass Storage =
+
+In order to support providing Windows Drivers on device in flash, some DisplayLink devices appear at boot to be CDROM devices.
+
+These device's default USB configuration returns class code = mass storage, vendor ID = DisplayLink, and product ID matching the particular DisplayLink device.  Only when the device is switched to configuration #1 does the device function as a display.  That configuration shows no class code, while showing the same vendor and product IDs.
+
+The following devices have this configuration, as of July 2009
