@@ -1,4 +1,6 @@
-Some DisplayLink devices may report a class code which will cause them to get matched with a Linux kernel input or cdrom driver, before the displaylink-mod kernel framebuffer driver has a chance to see the device.  This is because DisplayLink devices may come up in a default configuration other than #1 and report USB HID or USB mass storage class codes, in order to provide a special install path on Windows. 
+Some DisplayLink devices may report a class code which will cause them to get matched with a Linux kernel input or cdrom driver, before the displaylink-mod kernel framebuffer driver has a chance to see the device. In that case, obviously the DisplayLink device will appear not to work.
+
+This happens because some DisplayLink devices come up in a default configuration other than #1 and report USB HID or USB mass storage class codes, in order to provide a special install path on Windows. 
 
 In all cases, if the USB configuration of the DisplayLink device is set to 1 (from whatever the default is, which is usually 2 for these type of devices), then the DisplayLink device will report no special class code, and will get matched against the correct driver. 
 
