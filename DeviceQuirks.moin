@@ -10,6 +10,7 @@ So how can the devices which won't work by default be handled?
 
 One solution may be a udev script and utility solution like this:
 
+{{{
 cat /etc/udev/rules.d/60-displaylink.rules
 # DisplayLink devices always have the active configuration on configuration #1
 SYSFS{idVendor}=="17e9", SYSFS{bConfigurationValue}=="2", RUN+="/usr/bin/dlconfig /sys%p/bConfigurationValue"
@@ -23,10 +24,11 @@ fi;
 if [ -e /sys$1/bConfigurationValue ]; then
     echo 1 > /sys$1/bConfigurationValue
 fi;
+}}}
 
 This results in the configuration being switched for DL devices. It works on both HID and MSC variants of the autoinstall – tested on a Pegasus adapter and the HP dock. It’s probably not the neatest solution – maybe there’s a way to set the configuration without an extra executable, and there may be a better way to discover the correct path for bConfigurationValue.
 
-This method is problematic, because it creates a new dependency on udev scripts, which may not get picked up by every Linux distribution, and it's not precidented.
+This method is problematic, because it creates a new dependency on udev scripts, which may not get picked up by every Linux distribution, and there are not other devices which require this kind of quirk (which would cause a rule to be checked on every Linux system on every boot).
 
 == blacklisting in the HID and mass storage (MSC) class drivers ==
 
