@@ -1,4 +1,38 @@
-= Appear as USB HID =
+= Quirks =
+
+Some DisplayLink devices may report a class code which will cause them to get matched with a Linux kernel input or cdrom driver, before the displaylink-mod kernel framebuffer driver has a chance to see the device.  This is because DisplayLink devices may come up in a default configuration other than #1, in order to provide a special install path on Windows.  In all cases, if the USB configuration of the DisplayLink device is set to 1 (from whatever the default is, which is usually 2), then the DisplayLink device will report no special class code, and will get matched against the correct driver.
+
+= Solutions =
+
+== udev rule ==
+
+One solution may be a udev script and utility solution like this:
+
+cat /etc/udev/rules.d/60-displaylink.rules
+# DisplayLink devices always have the active configuration on configuration #1
+SYSFS{idVendor}=="17e9", SYSFS{bConfigurationValue}=="2", RUN+="/usr/bin/dlconfig /sys%p/bConfigurationValue"
+
+cat /usr/bin/dlconfig
+#! /bin/bash
+if [ -e /sys$1/device/bConfigurationValue ]; then
+    echo 1 > /sys$1/device/bConfigurationValue
+fi;
+
+if [ -e /sys$1/bConfigurationValue ]; then
+    echo 1 > /sys$1/bConfigurationValue
+fi;
+
+This results in the configuration being switched for DL devices. It works on both HID and MSC variants of the autoinstall – tested on a Pegasus adapter and the HP dock. It’s probably not the neatest solution – maybe there’s a way to set the configuration without an extra executable, and there may be a better way to discover the correct path for bConfigurationValue.
+
+This method is problematic, because it creates a new dependency on udev scripts, which may not get picked up by every Linux distribution, and it's not precidented.
+
+== blacklisting in the HID and mass storage (MSC) class drivers ==
+
+This has lots of precedents, but there are problems.  Some HID interfaces expose real functionality (like dock buttons) which others exist only to hide the main displaylink device to prevent unwanted Windows dialogs.  If the match is done on PID, it can only match historical devices. And for DisplayLink, there are many PIDs which show as Mass Storage class, and there is no important case where Linux would benefit from access to the driver, so a VID match would be better.  But the mass storage driver's logic assumes a specific PID match today.
+
+= Lists of DisplayLink PIDs of each type =
+
+== Appear as USB HID ==
 
 Some DisplayLink devices appear to be USB HID (input) devices.  They come up in a configuration other than #1, and should be switched to USB configuration #1 to enable normal use of the device.  This is done to prevent Win XP's Found New Hardware Wizard from appearing when the device is connected. See "Background" below.
 
@@ -10,7 +44,7 @@ LG L226WU, PID 0x0121
 HP Dock, PID 0x01d4
 }}}
 
-= Appear as USB Mass Storage =
+== Appear as USB Mass Storage ==
 
 In order to support providing Windows Drivers on device in flash, some DisplayLink devices appear at boot to be CDROM devices.
 
