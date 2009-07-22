@@ -1,3 +1,15 @@
+= Appear as USB HID =
+
+Some DisplayLink devices appear to be USB HID (input) devices.  They come up in a configuration other than #1, and should be switched to USB configuration #1 to enable normal use of the device.  This is done to prevent Win XP's Found New Hardware Wizard from appearing when the device is connected. See "Background" below.
+
+{{{#!CSV ,
+Samsung Ubisync 940UX, PID 0x0101
+Samsung 22” monitor, PID 0x0105
+LG L206WU, PID 0x0120
+LG L226WU, PID 0x0121
+HP Dock, PID 0x01d4
+}}}
+
 = Appear as USB Mass Storage =
 
 In order to support providing Windows Drivers on device in flash, some DisplayLink devices appear at boot to be CDROM devices.
@@ -100,3 +112,41 @@ The following devices have this configuration, as of July 2009
  product_name = 'BUFFALO FTD-W71USB', pid = 0x025B
 
 }}}
+
+= Background =
+
+A bit more background on the "whys", so the Linux solution can be understood:
+
+It's not uncommon for USB devices play some games with USB class
+codes, in order to improve the Windows XP install experience.  Many
+DisplayLink devices do this.  Unfortunately, it creates a hassle for
+Linux.  But there are solutions, we just need to get them in place.
+Here's the background:
+
+On Windows XP, the Found New Hardware Wizard pops up when any device
+without drivers arrives.  Unfortunately, it's a UI that users
+typically get lost in (without ultimately finding appropriate
+drivers).  Vista and now particularly Win7 do a much better job, but
+XP is still an important case.
+
+To make the device install experience on XP better, companies take
+pains to avoid FNHW: stickers over the USB connector saying "install
+driver disk first", etc.  They may also have the device report a USB
+class code that is matched by an in-box driver that's otherwise
+benign, so FNHW is never shown. HID matches that bill.  Windows pnp
+logic is always to use the most specific driver match - so it will
+silently match HID initially, but once drivers are installed (e.g.
+from disk, or from internet) that match more specifically on VID/PID,
+Windows will automatically prefer those drivers over those that only
+match on the class code.
+
+The second common scenario is the device may actually appear first as
+a USB CDROM with Windows drivers on it, and only once the proper
+configuration is set, it turns into the "real" device. On DisplayLink
+devices - the core graphics function is always on configuration #1
+(even if the default configuration is something else like 2, to hide
+the device without in-OS drivers).
+
+You can see how libdlo handles this (not smart or graceful, but does
+make libdlo work 100% of the time) at
+http://cgit.freedesktop.org/libdlo/tree/src/dlo_usb.c around line 319.
