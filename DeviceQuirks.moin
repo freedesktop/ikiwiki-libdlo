@@ -30,6 +30,10 @@ This method is problematic, because it creates a new dependency on udev scripts,
 
 This has lots of precedents, but there are problems.  Some HID interfaces expose real functionality (like dock buttons) which others exist only to hide the main displaylink device to prevent unwanted Windows dialogs.  If the match is done on PID, it can only match historical devices. And for DisplayLink, there are many PIDs which show as Mass Storage class, and there is no important case where Linux would benefit from access to the driver, so a VID match would be better.  But the mass storage driver's logic assumes a specific PID match today.
 
+== usb-modeswitch ==
+
+There are other types of devices which have similar behaviors.  Some of these use the usb-modeswitch package to allow a user to easily switch configuration.  Support for the affected DisplayLink devices could be integrated with http://packages.debian.org/sid/usb-modeswitch 
+
 = Lists of DisplayLink PIDs of each type =
 
 == Appear as USB HID ==
