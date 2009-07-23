@@ -1,3 +1,15 @@
+Ubuntu 9.04 introduced a number of bugs which mean DisplayLink devices will not work out of the box.  XUbuntu 8.10 and other distros are known to not have these issues - The DisplayLink X server works as expected.
+
+The known 9.04 problems include:
+
+ * Several gnome bugs that will cause GDM login prompt and the gnome shell to not load or crash easily. When these problems occur, log of errors appears in ~/.xsession-errors for the user logging in
+   * glib bug for DISPLAY other than :0 (see detail below)
+   * glib/gnome problems with xrandr functionality implemented in the displaylink X server
+
+Any more success/failure reports, corrections, or additional info are very welcome!
+
+= Detail = 
+
 For setting up an extended desktop, you can generally follow with steps for Ubuntu 8.10 at http://mulchman.org/blog/?p=21, with the following differences:
 
 Ubuntu 9.04 includes gnome glib 2.20, which has a simple but nasty glibc bug that affects scenarios with multiple X servers running. There is a source patch available, but no package update, making Ubuntu 9.04 not recommended for DisplayLink users, unless you're willing to follow the steps below:
@@ -13,6 +25,8 @@ Ubuntu 9.04 includes gnome glib 2.20, which has a simple but nasty glibc bug tha
  1. sudo make install
 
 See https://bugs.launchpad.net/glib/+bug/346964 for background
+
+Also, displaylink-mod's support for the randr X extension (which may be incomplete) appears to cause separate problems for gnome which are visible in .xsession-errors.
 
 Other notes: 
 
