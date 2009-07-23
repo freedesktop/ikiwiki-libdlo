@@ -1,0 +1,9 @@
+Written by Roberto De Ioris (roberto at unbit.it), with help from several others.
+
+Designed to run on top of the [[displaylink-mod]] linux kernel framebuffer driver.
+
+Latest version available at http://projects.unbit.it/downloads/udlfb-0.2.3_and_xf86-video-displaylink-0.3.tar.gz  Ignore udlfb in this package, and use the latest [[displaylink-mod]] kernel framebuffer driver instead (the same X server works on both old and new framebuffer drivers).
+
+This driver has not yet been picked up by any Linux distributions, but hopefully will soon. Please make any notes here.
+
+See [[XConfiguration]] for more information on xorg.conf files which will properly configure this driver and bring it to life.
