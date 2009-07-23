@@ -1,6 +1,6 @@
-Some DisplayLink devices may report a class code which will cause them to get matched with a Linux kernel input or cdrom driver, before the displaylink-mod kernel framebuffer driver has a chance to see the device. In that case, obviously the DisplayLink device will appear not to work.
+Some DisplayLink devices have multiple USB configurations, with the default configuration reporting a class code which will cause them to get matched with a Linux kernel input or cdrom driver, before the displaylink-mod kernel framebuffer driver has a chance to see the device. In that case, obviously the DisplayLink device will appear not to work.
 
-This happens because some DisplayLink devices come up in a default configuration other than #1 and report USB HID or USB mass storage class codes, in order to provide a special install path on Windows. 
+This happens because some DisplayLink devices come up in a default configuration other than #1 and report USB HID or USB mass storage class codes, in order to provide a special autoinstall path on Windows. 
 
 In all cases, if the USB configuration of the DisplayLink device is set to 1 (from whatever the default is, which is usually 2 for these type of devices), then the DisplayLink device will report no special class code, and will get matched against the correct driver. 
 
@@ -28,7 +28,7 @@ if [ -e /sys$1/bConfigurationValue ]; then
 fi;
 }}}
 
-This results in the configuration being switched for DL devices. It works on both HID and MSC variants of the autoinstall – tested on a Pegasus adapter and the HP dock. It’s probably not the neatest solution – maybe there’s a way to set the configuration without an extra executable, and there may be a better way to discover the correct path for bConfigurationValue.
+This results in the configuration being switched for DL devices. It works on both HID and MSC variants of the autoinstall. udev gets called with different device paths for HID and MSC, hence the two parts to the dlconfig script.
 
 This method is problematic, because it creates a new dependency on udev scripts, which may not get picked up by every Linux distribution, and there are not other devices which require this kind of quirk (which would cause a rule to be checked on every Linux system on every boot).
 
@@ -46,126 +46,108 @@ There are other types of devices which have similar behaviors.  Some of these us
 
 == Appear as USB HID ==
 
-Some DisplayLink devices appear to be USB HID (input) devices.  They come up in a configuration other than #1, and should be switched to USB configuration #1 to enable normal use of the device.  This is done to prevent Win XP's Found New Hardware Wizard from appearing when the device is connected. See "Background" below.
+Some DisplayLink devices appear to be USB HID (input) devices.  They come up in a configuration other than #1, and should be switched to USB configuration #1 to enable normal use of the device.  This is done to prevent Win XP Found New Hardware Wizard from appearing when the device is connected. See "Background" below.
 
 Affected devices as of July 2009
 
 {{{#!CSV ,
-Samsung Ubisync 940UX, PID 0x0101
-Samsung 22” monitor, PID 0x0105
-LG L206WU, PID 0x0120
-LG L226WU, PID 0x0121
-HP Dock, PID 0x01d4
+Product Name, PID
+Samsung Ubisync 940UX, 0x0101
+Samsung 22” monitor, 0x0105
+LG L206WU, 0x0120
+LG L226WU, 0x0121
+HP Dock, 0x01d4
 }}}
 
 == Appear as USB Mass Storage ==
 
 In order to support providing Windows Drivers on device in flash, some DisplayLink devices appear at boot to be CDROM devices.
 
-These device's default USB configuration returns class code = mass storage, vendor ID = DisplayLink, and product ID matching the particular DisplayLink device.  Only when the device is switched to configuration #1 does the device function as a display.  That configuration shows no class code, while showing the same vendor and product IDs.
+These device's default USB configuration returns class code = mass storage, vendor ID = DisplayLink, and product ID matching the particular DisplayLink device.  Only when the device is switched to configuration #1 does the device function as a display.  That configuration shows class code 0xff - vendor specific.
 
 The following devices have this configuration, as of July 2009
 
 {{{#!CSV ,
  Product Name, PID
- product_name = 'VNS Graphics Adapter', pid = 0x0130
- product_name = 'test Osprey', pid = 0x013a
- product_name = 'Graphics Adapter', pid = 0x0137
- product_name = 'DL-195 Adapter', pid = 0x013C
- product_name = 'DL-195 Adapter', pid = 0x025C
- product_name = 'DL-195 Auto-install', pid = 0x0130
- product_name = 'DL-165 Adapter', pid = 0x013C
- product_name = 'IOI WVGA', pid = 0x0280
- product_name = 'Buffalo FTD-W71USB', pid = 0x025B
- product_name = 'Infocus Projector', pid = 0x0301
- product_name = 'Buffalo FTD-W71USB', pid = 0x025B
- product_name = 'Buffalo FTD-W71USB', pid = 0x4028
- product_name = 'Buffalo FTD-W71USB', pid = 0x025B
- product_name = 'Osprey-CLAA070LC0', pid = 0x8051
- product_name = 'Hawk', pid = 0x8044
- product_name = 'Osprey-WXGA', pid = 0x8051
- product_name = 'LCOS Projector SVGA', pid = 0x0261
- product_name = 'UMD-700', pid = 0x025B
- product_name = 'IO DATA Mini Display', pid = 0x028B
- product_name = 'AN2440D3', pid = 0x028F
- product_name = 'Kensington Dock', pid = 0x8032
- product_name = 'Kensington Dock', pid = 0x4032
- product_name = 'Pegasus DVI', pid = 0x8063
- product_name = 'USB-DVI Adapter', pid = 0x0221
- product_name = 'Adamo LCD Monitor', pid = 0x02BF
- product_name = 'KTG Office Dock', pid = 0x4032
- product_name = 'Leo Dock', pid = 0xC032
- product_name = 'Leo Dock', pid = 0x8074
- product_name = 'Leo Dock', pid = 0xC032
- product_name = 'OllieB Dev Board', pid = 0xC002
- product_name = 'AN2440D3', pid = 0x028F
- product_name = 'AN2440D3', pid = 0x0141
- product_name = 'DL-165_SPI', pid = 0x0292
- product_name = 'DL-125_SPI', pid = 0x0293
- product_name = 'nanovision MiMo', pid = 0x401A
- product_name = 'nanovision MiMo', pid = 0x016C
- product_name = 'SB TG', pid = 0x016F
- product_name = 'Nanovision MiMo', pid = 0x016A
- product_name = 'USB to VGA Adapter', pid = 0x02A4
- product_name = 'TVI USB Monitor', pid = 0x0219
- product_name = 'USB-VGA Adapter', pid = 0x021a
- product_name = 'UWB Display Adapter', pid = 0x0208
- product_name = 'ACCELL USB-VGA', pid = 0x021D
- product_name = 'ACCELL VGA Adapter', pid = 0x021C
- product_name = 'VodafoneUVGA Adapter', pid = 0x0209
- product_name = 'VodafoneUVGA Adapter', pid = 0x0209
- product_name = '195 USB Adapter', pid = 0x0238
- product_name = '195 USB Adapter', pid = 0x0141
- product_name = 'Mini Monitor', pid = 0x028E
- product_name = 'V-Jack Osprey', pid = 0x015A
- product_name = 'WUSB-921', pid = 0x02A3
- product_name = 'UV195', pid = 0x02A5
- product_name = 'UV165', pid = 0x02A6
- product_name = 'UV-DLA1-DLRO', pid = 0x02A7
- product_name = 'Mini Display', pid = 0x4012
- product_name = 'Mini Display', pid = 0x4012
- product_name = 'Mini Display', pid = 0x028B
- product_name = 'DisplayLink Adapter', pid = 0x02A7
- product_name = 'GH-USD7', pid = 0x028B
- product_name = 'USB TO DVI', pid = 0x0140
- product_name = 'USB TO DVI', pid = 0x02A8
- product_name = 'USB LCD', pid = 0x019F
- product_name = 'MEDL display adaptor', pid = 0x024D
- product_name = 'VL-165D Auto 061509', pid = 0x0176
- product_name = 'I-O DATA LCD-USB7X', pid = 0x0153
- product_name = 'Infocus Projector', pid = 0x0301
- product_name = 'Infocus Projector', pid = 0x0300
- product_name = 'Infocus Projector', pid = 0x0302
- product_name = 'Infocus Projector', pid = 0x0300
- product_name = 'Infocus Projector', pid = 0x0302
- product_name = 'Infocus Projector', pid = 0x0302
- product_name = 'Infocus Projector', pid = 0x0306
- product_name = 'Infocus Projector', pid = 0x0305
- product_name = 'Infocus Projector', pid = 0x0307
- product_name = 'Infocus Merlin Projector', pid = 0x0300
- product_name = 'Infocus Merlin Projector', pid = 0x0300
- product_name = 'MINIMONITOR', pid = 0x01D1
- product_name = 'I-O DATA LCD-USB7X', pid = 0x01D1
- product_name = 'I-O DATA LCD-USB7X', pid = 0x01D1
- product_name = 'Touch screen mini-mo', pid = 0x0180
- product_name = 'Touch screen mini-mo', pid = 0x01D0
- product_name = 'AL5720_rev3_195_SPI', pid = 0x020E
- product_name = 'AL5730_Rev1_165_SPI', pid = 0x0210
- product_name = 'VT ViBook 2', pid = 0x023D
- product_name = 'ViBook Plus', pid = 0x023E
- product_name = 'DL-195 Adapter', pid = 0x025B
- product_name = 'USB-DVI Adapter', pid = 0x0221
- product_name = 'MMD-2001B1-165', pid = 0x0223
- product_name = 'Tac-Eye USB Adaptor', pid = 0x0275
- product_name = 'BUFFALO FTD-W71USB', pid = 0x025B
-
+ VNS Graphics Adapter, 0x0130
+ Graphics Adapter, 0x0137
+ test Osprey, 0x013a
+ DL-195 Adapter, 0x013C
+ USB TO DVI, 0x0140
+ 195 USB Adapter, 0x0141
+ I-O DATA LCD-USB7X, 0x0153
+ V-Jack Osprey, 0x015A
+ Nanovision MiMo, 0x016A
+ nanovision MiMo, 0x016C
+ SB TG, 0x016F
+ VL-165D Auto 061509, 0x0176
+ Touch screen mini-mo, 0x0180
+ USB LCD, 0x019F
+ Touch screen mini-mo, 0x01D0
+ MINIMONITOR, 0x01D1
+ UWB Display Adapter, 0x0208
+ VodafoneUVGA Adapter, 0x0209
+ AL5720_rev3_195_SPI, 0x020E
+ AL5730_Rev1_165_SPI, 0x0210
+ TVI USB Monitor, 0x0219
+ USB-VGA Adapter, 0x021a
+ ACCELL VGA Adapter, 0x021C
+ ACCELL USB-VGA, 0x021D
+ USB-DVI Adapter, 0x0221
+ MMD-2001B1-165, 0x0223
+ 195 USB Adapter, 0x0238
+ VT ViBook 2, 0x023D
+ ViBook Plus, 0x023E
+ MEDL display adaptor, 0x024D
+ BUFFALO FTD-W71USB, 0x025B
+ UMD-700, 0x025B
+ DL-195 Adapter, 0x025B
+ Buffalo FTD-W71USB, 0x025B
+ DL-195 Adapter, 0x025C
+ LCOS Projector SVGA, 0x0261
+ Tac-Eye USB Adaptor, 0x0275
+ IOI WVGA, 0x0280
+ IO DATA Mini Display, 0x028B
+ GH-USD7, 0x028B
+ Mini Display, 0x028B
+ Mini Monitor, 0x028E
+ AN2440D3, 0x028F
+ AN2440D3, 0x028F
+ DL-165_SPI, 0x0292
+ DL-125_SPI, 0x0293
+ WUSB-921, 0x02A3
+ USB to VGA Adapter, 0x02A4
+ UV195, 0x02A5
+ UV165, 0x02A6
+ DisplayLink Adapter, 0x02A7
+ UV-DLA1-DLRO, 0x02A7
+ USB TO DVI, 0x02A8
+ Adamo LCD Monitor, 0x02BF
+ Projector, 0x0300
+ Infocus Projector, 0x0301
+ Projector, 0x0301
+ Projector, 0x0302
+ Projector, 0x0305
+ Projector, 0x0306
+ Projector, 0x0307
+ Mini Display, 0x4012
+ nanovision MiMo, 0x401A
+ Buffalo FTD-W71USB, 0x4028
+ KTG Office Dock, 0x4032
+ Kensington Dock, 0x8032
+ Hawk, 0x8044
+ Osprey-WXGA, 0x8051
+ Pegasus DVI, 0x8063
+ Leo Dock, 0x8074
+ OllieB Dev Board, 0xC002
+ Leo Dock, 0xC032
 }}}
 
 = Background =
 
 A bit more background on the "whys", so the Linux solution can be understood:
 
-It's not uncommon for USB devices play some games with USB class
+It's not uncommon for USB devices to play some games with USB class
 codes, in order to improve the Windows XP install experience.  Many
 DisplayLink devices do this.  Unfortunately, it creates a hassle for
 Linux.  But there are solutions, we just need to get them in place.
