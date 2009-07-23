@@ -176,7 +176,29 @@ configuration is set, it turns into the "real" device. On DisplayLink
 devices - the core graphics function is always on configuration #1
 (even if the default configuration is something else like 2, to hide
 the device without in-OS drivers).
-
 You can see how libdlo handles this (not smart or graceful, but does
 make libdlo work 100% of the time) at
 http://cgit.freedesktop.org/libdlo/tree/src/dlo_usb.c around line 319.
+
+Greg has recommended taking this approach, based on a long
+history of dealing with quirks of this type:
+
+1) Actively set configuration 1 in the displaylink kernel framebuffer
+driver (call function
+http://lxr.linux.no/linux+v2.6.30/drivers/usb/core/usb.h#L31)
+2) Because Linux doesn't have the same assumption as Windows for
+matching best driver based on specificity of IDs, it may
+(non-deterministicly?) load a HID or MSC driver instead of the real
+DisplayLink framebuffer driver.  To avoid this problem completely, we
+have to add displaylink devices to the proper blacklists, e.g. as
+these examples of adding other devices to the HID blacklist:
+http://www.google.co.uk/search?q=linux+kernel+usb+hid+blacklist
+
+However, as mentioned above, the MSC blacklisting is messy on DisplayLink,
+and there isn't as much of a precedent for non-storage devices to be 
+blacklisted in the storage drivers, as would be the case here.
+
+If someone wanted to get wild and crazy, they could also take a look
+at a more comprehensive solution for #2 -- better aligning Linux's
+plug and play assumptions about driver matching based on specificity
+of class/vid/pid/rev, etc. with Windows' assumptions.
