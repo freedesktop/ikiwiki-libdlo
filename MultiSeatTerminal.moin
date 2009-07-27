@@ -1,3 +1,9 @@
 See http://en.wikipedia.org/wiki/Multiseat_configuration for more information on multiseat terminals in general.
 
 See http://www.ndiyo.org/systems/hubster/basics for a high level description of some specific multiseat scenarios possible with open source and DisplayLink hardware.
+
+There are a number of methods to achieve a multiseat configuration:
+
+ * With multiple X Servers, launched via the gdmdynamic utility.  This method works with current Linux DL drivers on [[Ubuntu8.10]] (but not [[Ubuntu9.04]])
+ * With one or more vnc clients connecting to the same machine or another, while rendering directly to a displaylink device as client. Quentin Stafford-Fraser quickly contributed [[vnc2dl]], which enables this scenario.
+ * With multiple displaylink devices in one extended desktop, where Xephyr or a similar solution is used to layer independent virtual X servers over each extended display.  This is possible with the [[xf86-driver-displaylink]]'s Xinerama support.
