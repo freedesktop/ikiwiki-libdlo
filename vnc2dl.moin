@@ -1,3 +1,3 @@
-A VNC client created by Dr. Quentin Stafford-Frasier which renders directly to displaylink devices (currently uses libdlo).
+A VNC client updated by Dr. Quentin Stafford-Frasier to render directly to displaylink devices (would benefit from some planned performance improvements to libdlo)
 
 For download and instructions, see http://lists.freedesktop.org/archives/libdlo/2009-May/000067.html
