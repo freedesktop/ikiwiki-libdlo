@@ -1,4 +1,5 @@
-A VNC client modified by [[http://qandr.org/quentin|Quentin Stafford-Fraser]] to render directly to displaylink devices (would benefit from some planned performance improvements to libdlo).
+{{http://camvine.com/files/vnc2dl2.jpg|A basic VNC desktop shown on a DL device|align="right"}}
+VNC2DL is a VNC client modified by [[http://qandr.org/quentin|Quentin Stafford-Fraser]] to render directly to DisplayLink devices. 
 
 With this, you can display a VNC server's output on a DisplayLink device.
 
@@ -11,4 +12,4 @@ There are various reasons you might want to use this:
 
 For download and instructions, see [[http://lists.freedesktop.org/archives/libdlo/2009-May/000067.html|Quentin's mailing list posting]] or [[http://wiki.github.com/quentinsf/vnc2dl|VNC2DL's page on GitHub]].
 
-{{http://camvine.com/files/vnc2dl2.jpg}}
+(VNC2DL was an early and basic user of the libdlo library and would benefit from some of the planned performance improvements to libdlo).
