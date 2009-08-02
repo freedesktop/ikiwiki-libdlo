@@ -7,3 +7,36 @@ There are a number of methods to achieve a multiseat configuration:
  * With multiple X Servers, launched via the gdmdynamic utility.  This method works with current Linux DL drivers on [[Ubuntu8.10]] (but not [[Ubuntu9.04]])
  * With one or more vnc clients connecting to the same machine or another, while rendering directly to a displaylink device as client. Quentin Stafford-Fraser quickly contributed [[vnc2dl]], which enables this scenario.
  * With multiple displaylink devices in one extended desktop, where Xephyr or a similar solution is used to layer independent virtual X servers over each extended display.  This is possible with the [[xf86-driver-displaylink]]'s Xinerama support.
+
+= Multiple X Servers =
+
+With a distribution whose components support multiple X servers and a login system that can launch X servers dynamically (e.g. gdmdynamic), running multiseat with displaylink devices is easy and because of usb can be largely plug and play.  Unfortunately, multiple X server support has been flakey, so many distros won't work.  So for this example, Xubuntu 8.10 is used and works well.
+
+Linux's udev system is where we want to tie in, to make the arrival of a usb display, keyboard, mouse, etc. an event that triggers the launch of a new login screen via gdmdynamic.
+
+A few assumptions:
+
+ * [[displaylink-mod]] is already running on your displaylink devices (you get a green screen upon device insertion)
+ * [[xf86-driver-displaylink]] has been built and copied to /usr/lib/xorg/modules/drivers
+ * you have one or more 'terminals' which consist of a displaylink device, keyboard, and mouse all sitting directly off the same USB hub
+
+Given that, the setup is not complicated. Files to help you along are attached below. In the file list below, 
+
+ 1. the .rules files should be placed in the /etc/udev/rules.d directory
+ 2. the .sh files and .sed files should be placed in the /lib/udev directory
+ 3. you should back up your existing /etc/gdm/gdm.conf and replace with the minimal one attached.  Your machine will now boot to a text terminal at first
+ 4. in the context of running udev rules, the process doesn't have the ability to run gdynamic commands.  To make this fully plug and play, you will need elevate udev's permissions (e.g. through [[http://en.wikipedia.org/wiki/Setuid|setuid]] or the [[http://en.wikipedia.org/wiki/Sudoers|sudoers]] file). The security implications haven't been fully worked out - any comments or recommended methods welcome. 
+
+To debug or run by hand if the permissions or something else isn't working, run
+{{{
+ls -lR /dev/usbseat
+}}}
+and confirm that you have some groupings of display, keyboard, and mouse under a single hub.  Note the device number of that hub under /dev/usbseat. If you have devices connected, but nothing under /dev/usbseat, then something has gone wrong with running 50-usbseat.rules
+
+then run 
+{{{
+sudo /lib/udev/run-usbseat.sh 5
+}}}
+replacing '5' with whatever the device number of that usb hub was, that had a complete seat.  A new terminal should launch.  If it doesn't, look at /var/log/gdm/:5.log and/or /var/log/Xorg.5.log for hints at what went wrong.
+
+<<AttachList>>
