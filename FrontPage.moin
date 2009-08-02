@@ -44,9 +44,7 @@ To start the build process, open a shell prompt and run
 
 
 
-"Make check" will do some basic drawing on one of the attached DisplayLink devices. 
-
-
+"Make check" will do some basic drawing on one of the attached DisplayLink devices. If you hit errors during configure, try installing the autotools and libtool packages.
 
 Please see the README in the distribution for more details.
 
