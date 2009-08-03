@@ -30,7 +30,7 @@ fi;
 
 This results in the configuration being switched for DL devices. It works on both HID and MSC variants of the autoinstall. udev gets called with different device paths for HID and MSC, hence the two parts to the dlconfig script.
 
-This method is problematic, because it creates a new dependency on udev scripts, which may not get picked up by every Linux distribution, and there are not other devices which require this kind of quirk (which would cause a rule to be checked on every Linux system on every boot).
+Technically, this covers 100% of the cases.  Practically, this method may be problematic in that these short udev scripts must get picked up by every Linux distribution (or users must run them)
 
 However, for multiseat solutions, it's possible to use udev rules to find groupings of display, keyboard, mouse, etc. under the same USB hub, record that in the /dev filesystem as a seat, and then launch a (gdmdynamic) login prompt for that "seat".  If a udev script providing that kind of functionality is appealing enough to get picked up by most/all Linux distros, then setting configuration 1 for all DisplayLink devices in that script might be a good catch-all solution.  
 
