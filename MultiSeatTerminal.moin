@@ -8,6 +8,8 @@ There are a number of methods to achieve a multiseat configuration:
  * With one or more vnc clients connecting to the same machine or another, while rendering directly to a displaylink device as client. Quentin Stafford-Fraser quickly contributed [[vnc2dl]], which enables this scenario.
  * With multiple displaylink devices in one extended desktop, where Xephyr or a similar solution is used to layer independent virtual X servers over each extended display.  This is possible with the [[xf86-driver-displaylink]]'s Xinerama support.
 
+The preferred method because it involves the least overhead, is the Multiple X Server method.
+
 = Multiple X Servers =
 
 With a distribution whose components support multiple X servers and a login system that can launch X servers dynamically (e.g. gdmdynamic), running multiseat with displaylink devices is easy and because of usb can be largely plug and play.  Unfortunately, multiple X server support has been flakey, so many distros won't work.  So for this example, Xubuntu 8.10 is used and works well.  Standard Ubuntu 9.04 can also work, with some additional limitations.
