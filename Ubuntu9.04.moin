@@ -1,18 +1,29 @@
-Ubuntu 9.04 introduced a number of bugs which mean DisplayLink devices will not work out of the box.  XUbuntu 8.10 and other distros are known to not have these issues - The DisplayLink X server works as expected.
+Ubuntu 9.04 follows similar steps, but requires some additional modifications vs the [[Ubuntu8.10]] instructions, because of some new issues and increased reliance on xrandr.
 
-The known 9.04 problems include:
+1. [[xf86-driver-displaylink]] "make install" puts displaylink_drv file in /usr/local/lib/xorg/modules/drivers, while Ubuntu 9.04 only looks in /usr/lib by default
+   * copy or link file to /usr/lib or change X configuration to also look in /usr/local/lib/xorg/modules/drivers
 
- * Several gnome bugs that will cause GDM login prompt and the gnome shell to not load or crash easily. When these problems occur, log of errors appears in ~/.xsession-errors for the user logging in
+2. Unbuntu 9.04 relies on more X RandR support, which is incomplete in [[xf86-driver-displaylink]].  In particular, there's a small but nasty problem of X coming up with the screen rotate not set normally. The effect to the end user is windows are sometimes positioned off-screen.  
+In particular, with the GDM greeter/login, the login will come up on screen initially, but any menus will come up offscreen, and any move of the window will cause it to disappear.  Once logged in, most other Gnome elements (like the taskbar) appear to be gone, because they're off screen.
+
+These randr X/GDM errors may also be visible in the users' .xsession-errors.
+
+Until the a proper fix is understood, a workaround is to call xrandr -o 0 within the user session.  This can be done by hand each login, or run for every new user session by adding these three lines into /etc/gdm/Init/Default after the defintion of the gdmwhich() function:
+
+{{{
+XRANDR=`gdmwhich xrandr`
+if [ "x$XRANDR" != "x" ] ; then
+  $XRANDR -o 0
+fi
+}}}
+
+It would seem like this could be fixed by setting some defaults in [[xf86-driver-displaylink]]. Ideas or patches welcome!
+
+3. There is at least one gnome bug that may cause GDM login prompt and the gnome shell to not load or crash easily. When these problems occur, log of errors appears in ~/.xsession-errors for the user logging in
    * glib bug for DISPLAY other than :0 (see detail below)
    * glib/gnome problems with xrandr functionality implemented in the displaylink X server
 
-Any more success/failure reports, corrections, or additional info are very welcome!
-
-= Detail = 
-
-For setting up an extended desktop, you can generally follow with steps for Ubuntu 8.10 at http://mulchman.org/blog/?p=21, with the following differences:
-
-Ubuntu 9.04 includes gnome glib 2.20, which has a simple but nasty glibc bug that affects scenarios with multiple X servers running. There is a source patch available, but no package update, making Ubuntu 9.04 not recommended for DisplayLink users, unless you're willing to follow the steps below:
+Ubuntu 9.04 includes gnome glib 2.20, which has a small glibc bug that affects scenarios with multiple X servers running. There is a source patch available, but no package update, making Ubuntu 9.04 not recommended for DisplayLink users, unless you're willing to follow the steps below:
 
  1. wget http://ftp.gnome.org/pub/gnome/sources/glib/2.20/glib-2.20.1.tar.gz
  1. tar -zxvf glib-2.20.1.tar.gz
@@ -25,10 +36,3 @@ Ubuntu 9.04 includes gnome glib 2.20, which has a simple but nasty glibc bug tha
  1. sudo make install
 
 See https://bugs.launchpad.net/glib/+bug/346964 for background
-
-Also, displaylink-mod's support for the randr X extension (which may be incomplete) appears to cause separate problems for gnome which are visible in .xsession-errors.
-
-Other notes: 
-
-* DisplayLink xf86 driver's "make install" puts displaylink_drv file in /usr/local/lib/xorg/modules/drivers, while Ubuntu 9.04 only looks in /usr/lib by default
-   * copy or link file to /usr/lib or change X configuration to also look in /usr/local/lib/xorg/modules/drivers
