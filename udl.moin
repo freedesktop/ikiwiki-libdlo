@@ -1,1 +1,4 @@
+The driver set written by Markus Glocker has often surpassed the Linux driver support available.
+
 Man page for udl(4) at http://www.openbsd.org/cgi-bin/man.cgi?query=udl&sektion=4&format=html
+Source for udl at http://www.openbsd.org/cgi-bin/cvsweb/src/sys/dev/usb/udl.c?only_with_tag=HEAD
