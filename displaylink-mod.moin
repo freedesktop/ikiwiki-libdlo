@@ -9,6 +9,7 @@ The most recent version was announced and available at http://lists.freedesktop.
  1. sudo depmod -a
 
 If successful, attached DisplayLink devices should show green screen at this point
+If make fails, on Debian/Ubuntu try "sudo apt-get install module-assistant" then "sudo module-assistant prepare" first to pull in the proper Linux kernel headers etc., then make clean and do over
 
 === Notes ===
 
