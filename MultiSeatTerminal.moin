@@ -47,7 +47,7 @@ Notes and remaining bugs:
  
  * When a USB terminal is connected at boot, udev runs before gdm has started. Until code is added, workaround is terminals need to be unplugged/replugged to start.
  * Remove case not being handled properly.  /dev/fb* hangs around, because handles to it remain open, so scripts don't see display as removed.  Needs fix which keys off presense of raw USB device node.
- * On Ubuntu 9.04, input is duplicated to the console, causing a bunch of problems including double-login if you don't switch VT first, and key repeat not working
+ * On Ubuntu 9.04, input is duplicated to the console, causing a bunch of problems including double-login if you don't switch VT first, and key repeat not working.  This is bug http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=525736, which at the bottom reports a workaround involving faketty. You can also see a short discussion of this bug at https://fedorahosted.org/pipermail/multiseat/2009-April/date.html
  * On various distros and hub/dock combos, the structure of the /sys tree may vary, requiring changes in the scripts (the scripts could be made more flexible, but also need to distinguish terminals from desktop extenders, etc.).  For example, on debian 5.0: http://lists.freedesktop.org/archives/libdlo/2009-September/000329.html
  * Scroll wheels don't work - this appears to be a common problem with recent multiseat setups.  If anyone finds an (xorg conf) workaround, please let it be known.
 
