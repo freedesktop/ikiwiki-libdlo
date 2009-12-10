@@ -53,3 +53,6 @@ Notes and remaining bugs:
 
 Any other notes on specific distros
  * All the limitations of [[xf86-driver-displaylink]] apply -- there are many
+
+= Other tutorials and examples =
+ * [[http://plugable.com/2009/11/16/setting-up-usb-multiseat-with-displaylink-on-linux-gdm-up-to-2-20/ | Setting up USB multiseat with DisplayLink on Linux (GDM up to 2.20) ]]
