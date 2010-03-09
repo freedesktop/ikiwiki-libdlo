@@ -10,6 +10,12 @@ There are a number of methods to achieve a multiseat configuration:
 
 The preferred method because it involves the least overhead, is the Multiple X Server method.
 
+This is possible in a plug-and-play fashion with USB graphics and other devices to form a "USB terminal"
+Up-to-date version of these instructions for Ubuntu 9.04 are available here:
+ * [[http://plugable.com/2009/11/16/setting-up-usb-multiseat-with-displaylink-on-linux-gdm-up-to-2-20/ | Setting up USB multiseat with DisplayLink on Linux (GDM up to 2.20) ]]
+
+But the general concept (using slightly out of date scripts) is covered below.
+
 = Multiple X Servers =
 
 With a distribution whose components support multiple X servers and a login system that can launch X servers dynamically (e.g. gdmdynamic), running multiseat with displaylink devices is easy and because of usb can be largely plug and play.  Unfortunately, multiple X server support has been flakey, so many distros won't work.  So for this example, Xubuntu 8.10 is used and works well.  Standard Ubuntu 9.04 can also work, with some additional limitations.
@@ -52,6 +58,3 @@ Notes and remaining bugs:
  * Scroll wheel do not work at the moment, but I tried on Ubuntu-9.04 with the /lib/udev/usbseat-xf86.conf.sed file and it works for me. Here is the link to content of mine file.  http://pastebin.com/m4e227210 [ Satish Wagh ]
 Any other notes on specific distros
  * All the limitations of [[xf86-driver-displaylink]] apply -- there are many
-
-= Other tutorials and examples =
- * [[http://plugable.com/2009/11/16/setting-up-usb-multiseat-with-displaylink-on-linux-gdm-up-to-2-20/ | Setting up USB multiseat with DisplayLink on Linux (GDM up to 2.20) ]]
