@@ -13,6 +13,6 @@ To build xf86-driver-displaylink, some notes:
 
 The driver will install to /usr/local/lib/xorg/modules/drivers which many distros don't look in. May need to copy/link or configure xorg.conf to look in this location.
 
-This driver has not yet been picked up by any Linux distributions, but hopefully will soon. Please make any notes here.
+This driver has been picked up by Gentoo and Ubuntu. Please make any further notes here.
 
 See [[XConfiguration]] for more information on xorg.conf files which will properly configure this driver and bring it to life.
