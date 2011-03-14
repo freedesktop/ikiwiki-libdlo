@@ -14,6 +14,9 @@ This is possible in a plug-and-play fashion with USB graphics and other devices 
 Up-to-date version of these instructions for Ubuntu 9.04 are available here:
  * [[http://plugable.com/2009/11/16/setting-up-usb-multiseat-with-displaylink-on-linux-gdm-up-to-2-20/ | Setting up USB multiseat with DisplayLink on Linux (GDM up to 2.20) ]]
 
+Similar instructions for RHEL 6 and RHEL based distros can be found here:
+ * [[http://otb.bg/blog/usb-multiseat-on-red-hat-enterprise-linux-6/252|USB multiseat on Red Hat Enterprise Linux 6]]
+
 But the general concept (using slightly out of date scripts) is covered below.
 
 = Multiple X Servers =
