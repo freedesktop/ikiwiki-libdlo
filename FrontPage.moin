@@ -1,18 +1,82 @@
-This is the official [[http://www.displaylink.com|DisplayLink]] Library project, libdlo. This library is an open-source implementation of !DisplayLink USB graphics software, and is licensed under the GNU Lesser General Public License (LGPL) v2.1.
+'''Contributions of your experiences and tips for specific displaylink configurations are very welcome!  Thank you!'''
 
-= Using DisplayLink devices  =
+A fully open source (GPL) driver which supports all DisplayLink
+devices to date (all DL1xx devices) is in the staging tree of the
+Linux 2.6.32 kernel, and can be compiled as a module for certain older
+kernels.  It is called udlfb.
 
-See the HowTo for installing and configuring drivers (e.g. Kernel Frambuffer, X Server) for !DisplayLink devices. These drivers are often independent of libdlo itself.
+It's still very much under development, but it's possible to write
+custom applications to it today (or to libdlo user mode library itself, bypassing
+udlfb).  And it's also possible to configure X and standard X
+applications to run on udlfb -- but that part is still very distro
+dependent today.  Most people in the DisplayLink community running X
+are on an older version of Ubuntu (9.04), and some on certain versions
+of RedHat.  Savvy people would be able to get other distros running,
+but it can be a slog.
 
-= Libdlo library background =
+= Usage Scenarios for USB Displays =
+
+ * TextConsole
+ * DirectFramebuffer
+ * ExtendedDesktop
+ * MultiSeatTerminal
+
+= HowTos for specific distributions =
+
+ * [[Ubuntu9.10]] - See post from Patrick Gilmore at [[http://blogg.noonday.se/2010/01/28/linux-usb-video-adapter/]]
+ * [[Ubuntu9.04]]
+ * [[Ubuntu8.10]] - See post at [[http://mulchman.org/blog/?tag=displaylink]]
+
+= Specific Drivers =
+
+ * Linux
+   * [[http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=tree;f=drivers/staging/udlfb;h=9f4cb8c01d7cc9235b76a603eebe2c7b77642f4c;hb=HEAD | udlfb]] is the original displaylink kernel framebuffer driver, without dynamic mode support and a few minor features, but fully functional and present in kernel versions 2.6.31 and later, and enabled by default in some recent distros (Ubuntu 9.10).
+   * [[displaylink-mod]] is a updated branch of the udlfb driver by the same author (Roberto)
+   * [[displaylinkfb]] is a new branch written by Jaya Kumar, targeted at embedded via defio and no in-kernel shadow framebuffer, which uses the standard fbdev X servers
+   * [[xf86-driver-displaylink]] X Server written by Roberto which works with both udlfb and displaylink-mod
+ * OpenBSD
+   * [[udl]] OpenBSD kernel text and graphics console driver
+   * [[xf86-driver-wsudl]] X driver for OpenBSD's udl(4) driver using the wscons(4) framework.
+
+= Specific Devices =
+
+ * DeviceQuirks for specific DisplayLink devices
+
+= Working Devices & Screens from Users =
+
+ * [[http://plugable.com/2009/10/13/using-the-plugable-dock/|Acer Aspire One - Ubuntu 9.04 - Plugable UD-160-A dock - Acer monitor]]
+
+= Linux Driver Project =
+
+To help release libdlo and encourage collaboration on fully functional Linux drivers, !DisplayLink has enlisted the help of the [[http://www.linuxdriverproject.org/|Linux Driver Project]] (LDP). The LDP are a group of Linux kernel developers (over 200 strong) and project managers (over 10) that develop and maintain Linux kernel drivers. They work with device manufacturers like !DisplayLink to specify, develop, submit to the main kernel, and maintain the kernel drivers. For more information, see the [[http://www.linuxdriverproject.org/twiki/bin/view/Main/FrequentlyAskedQuestions|Linux Driver Project Frequently Asked Questions]].
+
+= Open Source Support =
+
+== Mailing List ==
+
+Discussion regarding !DisplayLink open source code should use [[http://lists.freedesktop.org/mailman/listinfo/libdlo/|the libdlo mailing list on freedesktop.org]]. If you need to get in touch with DisplayLink about Linux-related issues, please email ''linux{at}displaylink.com'' (note: DisplayLink cannot provide support for Linux platforms; please use the libdlo mailing list for support-related issues).
+
+== Commercial Support ==
+
+Commercial paid support and consulting for the !DisplayLink libdlo Library is available from the following companies:
+
+ * [[http://www.endurancetech.co.uk/pages/displaylink.php|Endurance Technology]] (UK, India, Thailand) - ''libdlo{at}endurancetech.co.uk''
+
+ * [[http://www.inoscope.com|InoScope]] (Poland)  - ''libdlo{at}inoscope.com''
+
+= Libdlo Reference code =
+
+This is the official [[http://www.displaylink.com|DisplayLink]] Library project, libdlo. This library is an open-source implementation of !DisplayLink USB graphics software, and is licensed under the GNU Lesser General Public License (LGPL) v2.1. This should be considered reference code, rather than a starting point for any project. udlfb is a better starting point for open source code.
+
+== Libdlo library background ==
 
 This library will discover and connect to !DisplayLink USB graphics chips and allow for developers to support !DisplayLink devices on Linux and other platforms. libdlo itself doesn't include any drivers or applications intended for end-users.
 
-libdlo currently supports the !DisplayLink DL-120 and DL-160 ([[http://www.displaylink.com/displaylink_hardware.html|DL-1x0 Family]], "Alex") and the DL-125, DL-165, and DL-195 ([[http://www.displaylink.com/displaylink_hardware.html|DL-1x5 Family]], "Ollie") chips, though very limited testing has been done on the DL-1x5.
+libdlo currently supports the !DisplayLink DL-120 and DL-160 ([[http://www.displaylink.com/displaylink_hardware.html|DL-1x0 Family]], "Alex") and the DL-125, DL-165, and DL-195 ([[http://www.displaylink.com/displaylink_hardware.html|DL-1x5 Family]], "Ollie") chips.
 
 For a list of products that use !DisplayLink technology, please visit http://displaylink.com/shop.
 
-= Download libdlo =
+== Download libdlo ==
 
  * Most recent released version: [[http://people.freedesktop.org/~berniet/libdlo-0.1.2.tar.gz|libdlo-0.1.2.tar.gz]]
 
@@ -24,7 +88,7 @@ To get a high level view of what libdlo provides, please see [[http://people.fre
 
 
 
-= Using libdlo =
+== Using libdlo ==
 
 
 
@@ -50,7 +114,7 @@ Please see the README in the distribution for more details.
 
 
 
-= Discuss and Contribute =
+== Libdlo bug reporting ==
 
 Discussion regarding libdlo or !DisplayLink support for Linux should use [[http://lists.freedesktop.org/mailman/listinfo/libdlo/|the libdlo mailing list on freedesktop.org]]. If you need to get in touch with DisplayLink about Linux-related issues, please email ''linux{at}displaylink.com'' (note: DisplayLink cannot provide support for Linux platforms; please use the libdlo mailing list for support-related issues).
 
@@ -71,23 +135,6 @@ To follow libdlo specific changes and news on twitter, please visit http://twitt
 
 
 Additional information about !DisplayLink can be found on the [[http://en.wikipedia.org/wiki/DisplayLink|DisplayLink Wikipedia page]] or the official [[http://displaylink.com|DisplayLink website]]. To contact the !DisplayLink Linux team directly, please send an email to ''linux{at}displaylink.com''.
-
-
-
-= Commercial Support =
-
-Commercial paid support and consulting for the !DisplayLink libdlo Library is available from the following companies:
-
- * [[http://www.endurancetech.co.uk/pages/displaylink.php|Endurance Technology]] (UK, India, Thailand) - ''libdlo{at}endurancetech.co.uk''
-
- * [[http://www.inoscope.com|InoScope]] (Poland)  - ''libdlo{at}inoscope.com''
-
-
-
-= Linux Driver Project =
-
-To help release libdlo and encourage collaboration on fully functional Linux drivers, !DisplayLink has enlisted the help of the [[http://www.linuxdriverproject.org/|Linux Driver Project]] (LDP). The LDP are a group of Linux kernel developers (over 200 strong) and project managers (over 10) that develop and maintain Linux kernel drivers. They work with device manufacturers like !DisplayLink to specify, develop, submit to the main kernel, and maintain the kernel drivers. For more information, see the [[http://www.linuxdriverproject.org/twiki/bin/view/Main/FrequentlyAskedQuestions|Linux Driver Project Frequently Asked Questions]].
-
 
 
 {{http://s.rckc.at/UA-8386273-1/displaylink.org/libdlo}}
