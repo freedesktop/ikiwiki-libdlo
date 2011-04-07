@@ -1,8 +1,8 @@
 '''Contributions of your experiences and tips for specific displaylink configurations are very welcome!  Thank you!'''
 
 A fully open source (GPL) driver which supports all DisplayLink
-devices to date (all DL1xx devices) is in the staging tree of the
-Linux 2.6.32 kernel, and can be compiled as a module for certain older
+devices to date (all DL1xx devices) is in the mainline of the
+Linux 2.6.38 kernel, and can be compiled as a module for certain older
 kernels.  It is called udlfb.
 
 It's still very much under development, but it's possible to write
