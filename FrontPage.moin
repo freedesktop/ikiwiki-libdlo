@@ -37,6 +37,8 @@ but it can be a slog.
  * OpenBSD
    * [[udl]] OpenBSD kernel text and graphics console driver
    * [[xf86-driver-wsudl]] X driver for OpenBSD's udl(4) driver using the wscons(4) framework.
+ * Android
+   * There is a port of the open source for Android 1.6 [[https://github.com/magoroku15/DisplayLink-driver-for-android | here]]
 
 = Specific Devices =
 
