@@ -30,10 +30,16 @@ but it can be a slog.
 = Specific Drivers =
 
  * Linux
-   * [[http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=tree;f=drivers/staging/udlfb;h=9f4cb8c01d7cc9235b76a603eebe2c7b77642f4c;hb=HEAD | udlfb]] is the original displaylink kernel framebuffer driver, without dynamic mode support and a few minor features, but fully functional and present in kernel versions 2.6.31 and later, and enabled by default in some recent distros (Ubuntu 9.10).
-   * [[displaylink-mod]] is a updated branch of the udlfb driver by the same author (Roberto)
-   * [[displaylinkfb]] is a new branch written by Jaya Kumar, targeted at embedded via defio and no in-kernel shadow framebuffer, which uses the standard fbdev X servers
-   * [[xf86-driver-displaylink]] X Server written by Roberto which works with both udlfb and displaylink-mod
+   * Current Driver Locations, culled from [[http://lists.freedesktop.org/archives/libdlo/2011-June/000928.html | this thread]].
+     * [[http://git.plugable.com/webdav/xf86-video-fbdev/ | X FrameBuffer Driver]]. Standard X driver updated to use DisplayLink devices.
+     * [[http://git.plugable.com/webdav/xf-video-udlfb/ | X DisplayLink Driver]]. X driver just for DisplayLink devices.
+     * [[http://otb-sources.googlecode.com/svn/trunk/pds/udlfb-kmod/ | Kernel DisplayLink Driver]] from Google Code.
+     * Or use the driver shipped with kernel 2.6.38 or more recent.
+   * Older drivers and locations:
+     * [[http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=tree;f=drivers/staging/udlfb;h=9f4cb8c01d7cc9235b76a603eebe2c7b77642f4c;hb=HEAD | udlfb]] is the original displaylink kernel framebuffer driver, without dynamic mode support and a few minor features, but fully functional and present in kernel versions 2.6.31 and later, and enabled by default in some recent distros (Ubuntu 9.10).
+     * [[displaylink-mod]] is a updated branch of the udlfb driver by the same author (Roberto)
+     * [[displaylinkfb]] is a new branch written by Jaya Kumar, targeted at embedded via defio and no in-kernel shadow framebuffer, which uses the standard fbdev X servers
+     * [[xf86-driver-displaylink]] X Server written by Roberto which works with both udlfb and displaylink-mod
  * OpenBSD
    * [[udl]] OpenBSD kernel text and graphics console driver
    * [[xf86-driver-wsudl]] X driver for OpenBSD's udl(4) driver using the wscons(4) framework.
