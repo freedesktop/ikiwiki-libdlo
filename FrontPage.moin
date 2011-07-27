@@ -62,7 +62,7 @@ To help release libdlo and encourage collaboration on fully functional Linux dri
 
 == Mailing List ==
 
-Discussion regarding !DisplayLink open source code should use [[http://lists.freedesktop.org/mailman/listinfo/libdlo/|the libdlo mailing list on freedesktop.org]]. If you need to get in touch with DisplayLink about Linux-related issues, please email ''linux{at}displaylink.com'' (note: DisplayLink cannot provide support for Linux platforms; please use the libdlo mailing list for support-related issues).
+Discussion regarding !DisplayLink open source code should use [[http://lists.freedesktop.org/mailman/listinfo/libdlo/|the libdlo mailing list on freedesktop.org]] or the [[http://displaylink.org/forum/forumdisplay.php?f=29|DisplayLink open source forum]].
 
 == Commercial Support ==
 
@@ -124,7 +124,7 @@ Please see the README in the distribution for more details.
 
 == Libdlo bug reporting ==
 
-Discussion regarding libdlo or !DisplayLink support for Linux should use [[http://lists.freedesktop.org/mailman/listinfo/libdlo/|the libdlo mailing list on freedesktop.org]]. If you need to get in touch with DisplayLink about Linux-related issues, please email ''linux{at}displaylink.com'' (note: DisplayLink cannot provide support for Linux platforms; please use the libdlo mailing list for support-related issues).
+Discussion regarding libdlo or !DisplayLink support for Linux should use [[http://lists.freedesktop.org/mailman/listinfo/libdlo/|the libdlo mailing list on freedesktop.org]] or the [[http://displaylink.org/forum/forumdisplay.php?f=29|DisplayLink open source forum]]
 
 
 
@@ -142,7 +142,7 @@ To follow libdlo specific changes and news on twitter, please visit http://twitt
 
 
 
-Additional information about !DisplayLink can be found on the [[http://en.wikipedia.org/wiki/DisplayLink|DisplayLink Wikipedia page]] or the official [[http://displaylink.com|DisplayLink website]]. To contact the !DisplayLink Linux team directly, please send an email to ''linux{at}displaylink.com''.
+Additional information about !DisplayLink can be found on the [[http://en.wikipedia.org/wiki/DisplayLink|DisplayLink Wikipedia page]] or the official [[http://displaylink.com|DisplayLink website]].
 
 
 {{http://s.rckc.at/UA-8386273-1/displaylink.org/libdlo}}
