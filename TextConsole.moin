@@ -1,19 +1,5 @@
-= Disabling TextConsole =
+Monthly Loans- Pay Monthly Loans- Monthly Payday Loans
 
-At least with [[Ubuntu9.04]], once you've installed udlfb 0.3, Linux will take over the first DisplayLink framebuffer device for use as a TextConsole by default on boot.  This can get in the way of some usages.
+Monthly loans are online service providers that arrange an array of short term loan services Like pay monthly loans, Monthly payday loans and monthly payment loans. Just apply with Monthly Loans and get to fast decision.
 
-Some common advice for preventing the text console from using the available displaylink framebuffer device doesn't work.  
-
- * "echo 0 > /sys/class/vtconsole/vtcon1/bind" or similar won't unbind as documented in Linux kernel console docs http://www.mjmwired.net/kernel/Documentation/console/, or in the fbcon docs like http://www.mjmwired.net/kernel/Documentation/fb/fbcon.txt
-   * May be a bug in udlfb or a Linux bug
- * Trivially disabling fbcon won't work, because if any Linux kernel module has other modules which depend on it (or request to load it), will get pulled in even if the module is blacklisted, and take over the DisplayLink device again.
-
-A solution - overly broad - to keep udlfb devices from being consumed as TextConsoles is to disable fbcon and all dependent modules
-
- 1. run "modinfo fbcon" and look at the depends line.  All of these kernel modules need to be disabled, in addition to fbcon
- 2. Add these modules to /etc/modprobe.d/fbcon.conf per http://wiki.debian.org/KernelModuleBlacklisting
- 3. "sudo depmod -a" to reload the list of kernel modules, including the new blacklist information
- 4. Recreate your initrd with 'update-initramfs -u'
- 5. reboot
-
-You should be back to seeing the "udlfb green" as a solid color on all your DisplayLink devices at this point, meaning that udlfb is loaded, but no application is yet using that framebuffer device.
+For complete info you can visit at : http://www.monthlyloans.org.uk
