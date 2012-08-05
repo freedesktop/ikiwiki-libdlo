@@ -100,53 +100,28 @@ To get a high level view of what libdlo provides, please see [[http://people.fre
 
 == Using libdlo ==
 
-
-
  * Install a compatible libusb version (0.13)
-
     * on ubuntu - "sudo apt-get install libusb-dev"
-
  * Plug in a DisplayLink USB device
-
-
 
 To start the build process, open a shell prompt and run
 
-
-
   $ ./configure && sudo make install && make check
-
-
 
 "Make check" will do some basic drawing on one of the attached DisplayLink devices. If you hit errors during configure, try installing the autotools and libtool packages.
 
 Please see the README in the distribution for more details.
 
-
-
 == Libdlo bug reporting ==
 
 Discussion regarding libdlo or !DisplayLink support for Linux should use [[http://lists.freedesktop.org/mailman/listinfo/libdlo/|the libdlo mailing list on freedesktop.org]] or the [[http://displaylink.org/forum/forumdisplay.php?f=29|DisplayLink open source forum]]
 
+Please report bugs and submit patches to libdlo through [[https://bugs.freedesktop.org/|FreeDesktop.org Bugzilla]]. Submit new bugs through the following page: [[http://bugs.freedesktop.org/enter_bug.cgi?product=libdlo]].
 
-
-Please report bugs and submit patches to libdlo through [[https://bugs.freedesktop.org/|FreeDesktop.org Bugzilla]]. Submit new bugs through the following page: http://bugs.freedesktop.org/enter_bug.cgi?product=libdlo.
-
-
-
-To follow libdlo specific changes and news on twitter, please visit http://twitter.com/libdlo
-
-
+To follow libdlo specific changes and news on twitter, please visit [[http://twitter.com/libdlo]]
 
 = About DisplayLink and DisplayLink USB Graphics Technology =
 
 !DisplayLink is a chip and software company that develops a technology to connect monitors to PCs through a USB 2.0 cable. !DisplayLink USB graphics works by creating a “virtual graphics card” in software on the PC, compressing the data using a proprietary protocol, and sending the compressed data to a !DisplayLink chip on the far end of a USB 2.0 connection. !DisplayLink technology is available in USB to DVI adapters, USB monitors, USB “Universal” docking stations, and USB projectors.
 
-
-
 Additional information about !DisplayLink can be found on the [[http://en.wikipedia.org/wiki/DisplayLink|DisplayLink Wikipedia page]] or the official [[http://displaylink.com|DisplayLink website]].
-
-
-{{http://s.rckc.at/UA-8386273-1/displaylink.org/libdlo}}
-
-{{http://s.rckc.at/UA-8386273-2/libdlo.freedesktop.org/wiki/}}
