@@ -1,0 +1,10 @@
+Written by Jaya Kumar.  Features:
+
+ * use of defio. This enables it to work transparently with existing userspace fbdev applications, such as Xfbdev. I've been testing it with the unmodified Xfbdev from the beagleboard OE distro.
+ * avoiding the use of a backbuffer and keeping memory use low use of URB queuing
+ * looking like a typical fbdev driver and using standard edid and screeninfo structures
+
+Current disadvantages:
+ * No compression or fills, etc - always sends raw pixels
+
+Initial announcement and patch at http://lists.freedesktop.org/archives/libdlo/2009-September/000321.html
