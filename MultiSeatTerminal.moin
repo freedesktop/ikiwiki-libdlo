@@ -1,0 +1,63 @@
+See http://en.wikipedia.org/wiki/Multiseat_configuration for more information on multiseat terminals in general.
+
+See http://www.ndiyo.org/systems/hubster/basics for a high level description of some specific multiseat scenarios possible with open source and DisplayLink hardware.
+
+There are a number of methods to achieve a multiseat configuration:
+
+ * With multiple X Servers, launched via the gdmdynamic utility.
+ * With one or more vnc clients connecting to the same machine or another, while rendering directly to a displaylink device as client. Quentin Stafford-Fraser quickly contributed [[vnc2dl]], which enables this scenario.
+ * With multiple displaylink devices in one extended desktop, where Xephyr or a similar solution is used to layer independent virtual X servers over each extended display.  This is possible with the [[xf86-driver-displaylink]]'s Xinerama support.
+
+The preferred method because it involves the least overhead, is the Multiple X Server method.
+
+This is possible in a plug-and-play fashion with USB graphics and other devices to form a "USB terminal"
+Up-to-date version of these instructions for Ubuntu 9.04 are available here:
+ * [[http://plugable.com/2009/11/16/setting-up-usb-multiseat-with-displaylink-on-linux-gdm-up-to-2-20/ | Setting up USB multiseat with DisplayLink on Linux (GDM up to 2.20) ]]
+
+Similar instructions for RHEL 6 and RHEL based distros can be found here:
+ * [[http://otb.bg/blog/usb-multiseat-on-red-hat-enterprise-linux-6/252|USB multiseat on Red Hat Enterprise Linux 6]]
+
+But the general concept (using slightly out of date scripts) is covered below.
+
+= Multiple X Servers =
+
+With a distribution whose components support multiple X servers and a login system that can launch X servers dynamically (e.g. gdmdynamic), running multiseat with displaylink devices is easy and because of usb can be largely plug and play.  Unfortunately, multiple X server support has been flakey, so many distros won't work.  So for this example, Xubuntu 8.10 is used and works well.  Standard Ubuntu 9.04 can also work, with some additional limitations.
+
+Linux's udev system is where we want to tie in, to make the arrival of a usb display, keyboard, mouse, etc. an event that triggers the launch of a new login screen via gdmdynamic.
+
+A few assumptions:
+
+ * [[displaylink-mod]] is already running on your displaylink devices (you get a green screen upon device insertion)
+ * [[xf86-driver-displaylink]] has been built and copied to /usr/lib/xorg/modules/drivers
+ * you have one or more 'terminals' which consist of a displaylink device, keyboard, and mouse all sitting directly off the same USB hub
+
+Given that, the setup is not complicated. Files to help you along are attached below. In the file list below, 
+
+ 1. the .rules file should be placed in the /etc/udev/rules.d or /lib/udev/rules.d directory
+ 1. the .sh files and .sed files should be placed in the /lib/udev directory
+ 1. make sure the ownership and permissions on these files match the others in the same directory
+ 1. you should back up your existing /etc/gdm/gdm.conf and replace with the minimal one attached.  Your machine will now boot to a text terminal at first.  If this isn't done, the primary X instance will grab ownership of all keyboards and mice, etc.
+
+To debug or run by hand if the permissions or something else isn't working, run
+{{{
+ls -lR /dev/usbseat
+}}}
+and confirm that you have some groupings of display, keyboard, and mouse under a single hub.  Note the device number of that hub under /dev/usbseat. If you have devices connected, but nothing under /dev/usbseat, then something has gone wrong with running 50-usbseat.rules
+
+then run 
+{{{
+sudo /lib/udev/usbseat.sh 5
+}}}
+replacing '5' with whatever the device number of that usb hub was, that had a complete seat.  A new terminal should launch.  If it doesn't, look at /var/log/gdm/:5.log and/or /var/log/Xorg.5.log for hints at what went wrong.
+
+<<AttachList>>
+
+Notes and remaining bugs:
+ 
+ * When a USB terminal is connected at boot, udev runs before gdm has started. Until code is added, workaround is terminals need to be unplugged/replugged to start.
+ * Remove case not being handled properly.  /dev/fb* hangs around, because handles to it remain open, so scripts don't see display as removed.  Needs fix which keys off presense of raw USB device node.
+ * On Ubuntu 9.04, input is duplicated to the console, causing a bunch of problems including double-login if you don't switch VT first, and key repeat not working.  This is bug http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=525736, which at the bottom reports a workaround involving faketty. You can also see a short discussion of this bug at https://fedorahosted.org/pipermail/multiseat/2009-April/date.html
+ * On various distros and hub/dock combos, the structure of the /sys tree may vary, requiring changes in the scripts (the scripts could be made more flexible, but also need to distinguish terminals from desktop extenders, etc.).  For example, on debian 5.0: http://lists.freedesktop.org/archives/libdlo/2009-September/000329.html
+ * Scroll wheel do not work at the moment, but I tried on Ubuntu-9.04 with the /lib/udev/usbseat-xf86.conf.sed file and it works for me. Here is the link to content of mine file.  http://pastebin.com/m4e227210 [ Satish Wagh ]
+Any other notes on specific distros
+ * All the limitations of [[xf86-driver-displaylink]] apply -- there are many
