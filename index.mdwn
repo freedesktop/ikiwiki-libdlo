@@ -114,3 +114,5 @@ To follow libdlo specific changes and news on twitter, please visit [[http://twi
 DisplayLink is a chip and software company that develops a technology to connect monitors to PCs through a USB 2.0 cable. DisplayLink USB graphics works by creating a “virtual graphics card” in software on the PC, compressing the data using a proprietary protocol, and sending the compressed data to a DisplayLink chip on the far end of a USB 2.0 connection. DisplayLink technology is available in USB to DVI adapters, USB monitors, USB “Universal” docking stations, and USB projectors. 
 
 Additional information about DisplayLink can be found on the [[DisplayLink Wikipedia page|http://en.wikipedia.org/wiki/DisplayLink]] or the official [[DisplayLink website|http://displaylink.com]]. 
+
+This wiki is undergoing [[conversion]]. If you have a fd.o shell account, you can help!
