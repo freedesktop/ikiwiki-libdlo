@@ -1,6 +1,0 @@
-There are several methods to extend a single user's desktop to span multiple monitors (or clone between monitors)
-
- * [[RandR]]
- * [[Xinerama]]
-
-See http://mulchman.org/blog/?tag=displaylink for a good general post on setting up ExtendedDesktop on DisplayLink devices
