@@ -1,0 +1,18 @@
+Written by Roberto De Ioris (roberto at unbit.it), with help from several others.
+
+Designed to run on top of the [[displaylink-mod]] linux kernel framebuffer driver.
+
+Latest version available at http://projects.unbit.it/downloads/udlfb-0.2.3_and_xf86-video-displaylink-0.3.tar.gz  Ignore udlfb in this package, and use the latest [[displaylink-mod]] kernel framebuffer driver instead (the same X server works on both old and new framebuffer drivers).
+
+To build xf86-driver-displaylink, some notes:
+
+ * ./configure
+   * you may need to sudo apt-get install pkg-config and xorg-dev
+ * make
+ * sudo make install
+
+The driver will install to /usr/local/lib/xorg/modules/drivers which many distros don't look in. May need to copy/link or configure xorg.conf to look in this location.
+
+This driver has been picked up by Gentoo (x11 overlay) and Ubuntu. Please make any further notes here.
+
+See [[XConfiguration]] for more information on xorg.conf files which will properly configure this driver and bring it to life.
