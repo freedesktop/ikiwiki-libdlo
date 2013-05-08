@@ -89,9 +89,10 @@ To get a high level view of what libdlo provides, please see [[the PDF guide|htt
 
 ## Using libdlo
 
-* Install a compatible libusb version (0.13) 
-* on ubuntu, `sudo apt-get install libusb-dev`
-* Plug in a [[DisplayLink|DisplayLink]] USB device 
+ * Install a compatible libusb version (0.13) 
+    * on ubuntu, `sudo apt-get install libusb-dev`
+ * Plug in a [[DisplayLink|DisplayLink]] USB device 
+
 To start the build process, open a shell prompt and run 
 
     $ ./configure && sudo make install && make check
