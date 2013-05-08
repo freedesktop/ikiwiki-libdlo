@@ -17,7 +17,7 @@ It's still very much under development, but it's possible to write custom applic
 * [[Ubuntu9.10|Ubuntu9.10]] - See post at [[http://mulchman.org/blog/?p=90|http://mulchman.org/blog/?p=90]]. See post from Patrick Gilmore at [[http://blogg.noonday.se/2010/01/28/linux-usb-video-adapter/|http://blogg.noonday.se/2010/01/28/linux-usb-video-adapter/]] 
 * [[Ubuntu9.04|Ubuntu9.04]] 
 * [[Ubuntu8.10|Ubuntu8.10]] - See post at [[http://mulchman.org/blog/?tag=displaylink|http://mulchman.org/blog/?tag=displaylink]] 
-* [[ARMEDSlack-Current(May)|ARMEDSlack-Current(May)]] 
+* [[ARMEDSlack Current]] 
 
 # Specific Drivers
 
