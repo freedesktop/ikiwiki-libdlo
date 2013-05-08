@@ -1,0 +1,19 @@
+
+
+# Disabling TextConsole
+
+At least with [[Ubuntu9.04|Ubuntu9.04]], once you've installed udlfb 0.3, Linux will take over the first [[DisplayLink|DisplayLink]] framebuffer device for use as a TextConsole by default on boot.  This can get in the way of some usages. 
+
+Some common advice for preventing the text console from using the available displaylink framebuffer device doesn't work.   
+
+* "echo 0 > /sys/class/vtconsole/vtcon1/bind" or similar won't unbind as documented in Linux kernel console docs [[http://www.mjmwired.net/kernel/Documentation/console/|http://www.mjmwired.net/kernel/Documentation/console/]], or in the fbcon docs like [[http://www.mjmwired.net/kernel/Documentation/fb/fbcon.txt|http://www.mjmwired.net/kernel/Documentation/fb/fbcon.txt]] 
+      * May be a bug in udlfb or a Linux bug 
+* Trivially disabling fbcon won't work, because if any Linux kernel module has other modules which depend on it (or request to load it), will get pulled in even if the module is blacklisted, and take over the [[DisplayLink|DisplayLink]] device again. 
+A solution - overly broad - to keep udlfb devices from being consumed as [[TextConsoles|TextConsoles]] is to disable fbcon and all dependent modules 
+
+1. run "modinfo fbcon" and look at the depends line.  All of these kernel modules need to be disabled, in addition to fbcon 
+1. Add these modules to /etc/modprobe.d/fbcon.conf per [[http://wiki.debian.org/KernelModuleBlacklisting|http://wiki.debian.org/KernelModuleBlacklisting]] 
+1. "sudo depmod -a" to reload the list of kernel modules, including the new blacklist information 
+1. Recreate your initrd with 'update-initramfs -u' 
+1. reboot 
+You should be back to seeing the "udlfb green" as a solid color on all your [[DisplayLink|DisplayLink]] devices at this point, meaning that udlfb is loaded, but no application is yet using that framebuffer device. 
