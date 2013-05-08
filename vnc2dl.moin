@@ -1,0 +1,15 @@
+{{http://camvine.com/files/vnc2dl2.jpg|A basic VNC desktop shown on a DL device|align="right"}}
+VNC2DL is a VNC client modified by [[http://qandr.org/quentin|Quentin Stafford-Fraser]] to render directly to DisplayLink devices. 
+
+With this, you can display a VNC server's output on a DisplayLink device.
+
+There are various reasons you might want to use this:
+ * It's relatively easy to start up and kill off multiple VNC desktops at will (on Linux, at least)
+ * They can be of any resolution and pixel depth to suit your DisplayLink device
+ * VNC2DL doesn't have to be running on the same machine as the desktop, or on the same architecture
+ * You can have multiple VNC2DL instances connecting to the same desktop
+ * The desktop can outlive the VNC2DL instance, so you can disconnect one device and connect another, and bring the same desktop up on it (very different from a graphics card!)
+
+For download and instructions, see [[http://lists.freedesktop.org/archives/libdlo/2009-May/000067.html|Quentin's mailing list posting]] or [[http://wiki.github.com/quentinsf/vnc2dl|VNC2DL's page on GitHub]].
+
+(VNC2DL was an early and basic user of the libdlo library and would benefit from some of the planned performance improvements to libdlo).
