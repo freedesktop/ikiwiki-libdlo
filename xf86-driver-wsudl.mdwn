@@ -1,0 +1,5 @@
+
+New Xorg driver created for OpenBSD's udl(4) driver, it uses the wscons(4) framework. 
+
+* [[http://www.openbsd.org/cgi-bin/cvsweb/xenocara/driver/xf86-video-wsudl/|http://www.openbsd.org/cgi-bin/cvsweb/xenocara/driver/xf86-video-wsudl/]] 
+* [[http://marc.info/?l=openbsd-cvs&m=125362922025422&w=2|http://marc.info/?l=openbsd-cvs&m=125362922025422&w=2]] 
